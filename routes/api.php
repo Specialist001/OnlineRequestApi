@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\API\Application;
 use \App\Http\Controllers\API\Auth as AuthControllers;
 
 /*
@@ -24,3 +25,10 @@ Route::prefix('auth')->group(function () {
     // Logout Route
     Route::delete('logout', AuthControllers\LogOutController::class)->middleware('auth:sanctum')->name('logout');
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('requests')->group(function () {
+        Route::post('/', Application\StoreController::class)->middleware('user')->name('requests.store');
+    });
+});
+
