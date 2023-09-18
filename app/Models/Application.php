@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Enums\ApplicationStatusEnum;
+use App\Services\FilterService\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
     use HasFactory;
+    use Filterable;
 
     protected $fillable = [
         'name',
