@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\API\Auth as AuthControllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return response()->json([
-        'user' => $request->user(),
-    ]);
+// Auth Routes group
+Route::prefix('auth')->group(function () {
+    // Login Route with get or post
+    Route::post('login', AuthControllers\LoginController::class)->name('login');
+
+    // Register Route
+    Route::post('register', AuthControllers\RegisterController::class)->name('register');
+    // Logout Route
+    Route::delete('logout', AuthControllers\LogOutController::class)->middleware('auth:sanctum')->name('logout');
 });
-
-
