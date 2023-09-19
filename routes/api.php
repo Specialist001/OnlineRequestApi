@@ -28,6 +28,12 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('requests')->group(function () {
+        Route::middleware('moderator')->group(function () {
+            Route::get('/', Application\IndexController::class)->name('requests.index');
+            Route::get('/{id}', Application\ShowController::class)->name('requests.show');
+            Route::put('/{id}', Application\UpdateController::class)->name('requests.update');
+        });
+
         Route::post('/', Application\StoreController::class)->middleware('user')->name('requests.store');
     });
 });
